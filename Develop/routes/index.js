@@ -16,10 +16,10 @@ const tagRoutes = require('./api/tag-routes');
 router.use('/categories', categoryRoutes);
 router.use('/products', productRoutes);
 router.use('/tags', tagRoutes);
-// router.use('/api', apiRoutes);
 
-router.use((req, res) => {
-  res.send("<h1>This is not the route you are looking for!</h1>")
-});
+
+// router.use((req, res) => {
+//   res.send("<h1>This is not the route you are looking for!</h1>")
+// });
 
 module.exports = router;
