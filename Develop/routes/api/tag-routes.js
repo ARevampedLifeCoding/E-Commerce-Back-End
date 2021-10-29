@@ -24,7 +24,7 @@ router.get('/:id', async (req, res) => {
       res.status(200).json(tag);
     }
     else 
-    res.status(404).json({message: 'No Tag with this ID'})
+    res.status(404).json({message: 'There is no tag with this id.'})
   }
   catch(err)
   {
@@ -45,30 +45,45 @@ router.post('/', async (req, res) => {
   }
 });
 
-router.put('/:id', async (req, res) => {
+router.put('/:id', (req, res) => {
   // update a tag's name by its `id` value
-  try{
-    const tag = await Tag.update({tag_name : req.body.category_name},{where: {id: req.params.id}});
-    if(tag){
-      res.status(200).json({message:`${req.params.id} has been updated to ${req.body.name}`});
-    }
-  }
-  catch(err){
-    res.status(500).json(err);
-  }
+  Tag.update(req.body, {
+    where: {
+      id: req.params.id,
+    },
+  })
+  .then((updatedTag) => res.json(updatedTag))
+    .catch((err) => {
+      res.status(500).json(err);
+    });
 });
 
+// router.delete('/:id', async (req, res) => {
+//   // delete on tag by its `id` value
+//   try{
+//     const tag = await Tag.destroy({where: {id: req.params.id}});
+//     if(tag){
+//       res.status(200).json({message:`${req.params.id} has been deleted`});
+//     }
+//   }
+//   catch(err){
+//     res.status(500).json(err);
+//   }
+// });
 router.delete('/:id', async (req, res) => {
-  // delete on tag by its `id` value
-  try{
-    const tag = await Tag.destroy({where: {id: req.params.id}});
-    if(tag){
-      res.status(200).json({message:`${req.params.id} has been deleted`});
+  try {
+    const tagData = await Tag.destroy({
+      where: {
+        id: req.params.id
+      }
+    });
+    if (!tagData) {
+      res.status(404).json({ message: 'There is not a tag with this id.' });
+      return;
     }
-  }
-  catch(err){
+    res.status(200).json(tagData);
+  } catch (err) {
     res.status(500).json(err);
   }
 });
-
 module.exports = router;
