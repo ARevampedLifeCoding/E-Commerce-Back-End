@@ -16,6 +16,7 @@ Using postman or insomnia follow the routes to get put create and delete items i
 Clone the project then install the npm packages. After that start the application in node and open postman or insomnia and work the paths.
 ## Instructions
 Seeing more of how the the git put update and delete methods work.
+[![Watch the video](Walk Through)](https://watch.screencastify.com/v/fNmJw529NBLlBkXAlk3W)
 ## Credits
 
 ## License
